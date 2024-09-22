@@ -2,6 +2,7 @@ package third_party_api
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -15,6 +16,8 @@ func NewCepApi() CepApiInterface {
 }
 
 func (api *CepApi) GetLocationByCEP(cep string) (*entity.Location, error) {
+	fmt.Println("Getting location by CEP: ", cep)
+
 	url := fmt.Sprintf("https://viacep.com.br/ws/%s/json/", cep)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -32,8 +35,12 @@ func (api *CepApi) GetLocationByCEP(cep string) (*entity.Location, error) {
 		return nil, err
 	}
 
-	// Note: ViaCEP doesn't provide latitude and longitude.
-	// You might need to use another API or service to get these coordinates.
+	if result.Localidade == "" {
+		return nil, errors.New("location not found for CEP: " + cep)
+	}
+
+	fmt.Println("Location found: ", result)
+
 	return &entity.Location{
 		CEP:   result.CEP,
 		City:  result.Localidade,

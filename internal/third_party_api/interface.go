@@ -9,5 +9,5 @@ type CepApiInterface interface {
 }
 
 type WeatherApiInterface interface {
-	GetWeatherByCoordinates(lat, lon float64) (tempCelsius float64, err error)
+	GetWeatherByCity(city string) (tempCelsius float64, err error)
 }

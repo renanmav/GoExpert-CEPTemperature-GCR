@@ -1,7 +1,8 @@
 package usecase
 
 import (
-	"github.com/renanmav/GoExpert-CEPTemperature-GCR/internal/entity"
+	"fmt"
+
 	"github.com/renanmav/GoExpert-CEPTemperature-GCR/internal/third_party_api"
 )
 
@@ -10,10 +11,10 @@ type WeatherByCepInput struct {
 }
 
 type WeatherByCepOutput struct {
-	City       string  `json:"city"`
-	Celsius    float64 `json:"celsius"`
-	Fahrenheit float64 `json:"fahrenheit"`
-	Kelvin     float64 `json:"kelvin"`
+	City       string `json:"city"`
+	Celsius    string `json:"temp_C"`
+	Fahrenheit string `json:"temp_F"`
+	Kelvin     string `json:"temp_K"`
 }
 
 type WeatherByCepUseCase struct {
@@ -28,24 +29,24 @@ func NewWeatherByCepUseCase(cepGetter third_party_api.CepApiInterface, weatherGe
 	}
 }
 
-func (s *WeatherByCepUseCase) GetWeatherByCEP(cep string) (*entity.Weather, error) {
-	location, err := s.cepGetter.GetLocationByCEP(cep)
+func (s *WeatherByCepUseCase) GetWeatherByCEP(input WeatherByCepInput) (*WeatherByCepOutput, error) {
+	location, err := s.cepGetter.GetLocationByCEP(input.CEP)
 	if err != nil {
 		return nil, err
 	}
 
-	tempCelsius, err := s.weatherGetter.GetWeatherByCoordinates(location.Latitude, location.Longitude)
+	C, err := s.weatherGetter.GetWeatherByCity(location.City)
 	if err != nil {
 		return nil, err
 	}
 
-	tempFahrenheit := tempCelsius*1.8 + 32
-	tempKelvin := tempCelsius + 273.15
+	F := C*1.8 + 32
+	K := C + 273
 
-	return &entity.Weather{
+	return &WeatherByCepOutput{
 		City:       location.City,
-		Celsius:    tempCelsius,
-		Fahrenheit: tempFahrenheit,
-		Kelvin:     tempKelvin,
+		Celsius:    fmt.Sprintf("%.2f", C),
+		Fahrenheit: fmt.Sprintf("%.2f", F),
+		Kelvin:     fmt.Sprintf("%.2f", K),
 	}, nil
 }

@@ -13,7 +13,7 @@ This project is a Go-based web service that provides temperature information for
 ## Prerequisites
 
 - Go 1.19 or later
-- A WeatherAPI API key (sign up at https://www.weatherapi.com/)
+- WeatherAPI API key (sign up at https://www.weatherapi.com)
 
 ## Setup
 
@@ -21,6 +21,11 @@ This project is a Go-based web service that provides temperature information for
    ```
    git clone https://github.com/renanmav/GoExpert-CEPTemperature-GCR.git
    cd GoExpert-CEPTemperature-GCR
+   ```
+
+1. Create a `.env` file from the provided `.env.example`:
+   ```
+   cp .env.example .env
    ```
 
 1. Edit the `.env` file and set your WeatherAPI key:
@@ -47,7 +52,9 @@ The server will start on the port specified in your `.env` file (default is 8080
 
 To get weather information for a CEP, make a GET request to the `/weather` endpoint with the `cep` query parameter:
 
-http://localhost:8080/weather?cep=01001000
+```bash
+curl http://localhost:8080/weather?cep=01001000
+```
 
 The response will be a JSON object containing the city name and temperature in Celsius, Fahrenheit, and Kelvin.
 

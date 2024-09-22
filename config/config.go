@@ -7,7 +7,6 @@ import (
 )
 
 var (
-	ErrEnvFileNotFound     = errors.New(".env file not found")
 	ErrHTTPPortNotSet      = errors.New("HTTP_PORT is not set")
 	ErrWeatherAPIKeyNotSet = errors.New("WEATHER_API_KEY is not set")
 )
@@ -22,11 +21,7 @@ func LoadConfig() (*Config, error) {
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-			return nil, ErrEnvFileNotFound
-		} else {
-			return nil, err
-		}
+		return nil, err
 	}
 
 	var config Config
