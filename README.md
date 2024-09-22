@@ -1,6 +1,8 @@
 # GoExpert-CEPTemperature-GCR
 
-This project is a Go-based web service that provides temperature information for a given CEP (Postal Code) in Brazil. It uses the ViaCEP API to get location information and the WeatherAPI to fetch temperature data. The service is designed to be deployed on Google Cloud Run.
+This project is a Go-based web service that provides temperature information for a given CEP (Postal Code) in Brazil. It uses the [ViaCEP API](https://viacep.com.br/) to get location information and the [WeatherAPI](https://www.weatherapi.com/) to fetch temperature data.
+
+The service is designed to be deployed on [Google Cloud Run](https://cloud.google.com/run).
 
 ## Features
 
