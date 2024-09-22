@@ -64,17 +64,17 @@ The response will be a JSON object containing the city name and temperature in C
 
 1. Build the Docker image:
    ```
-   docker build -t gcr.io/your-project-id/cep-temperature-service .
+   docker build -t gcr.io/goexpert-436420/go-expert-cep-temperature-gcr .
    ```
 
 2. Push the image to Google Container Registry:
    ```
-   docker push gcr.io/your-project-id/cep-temperature-service
+   docker push gcr.io/goexpert-436420/go-expert-cep-temperature-gcr
    ```
 
 3. Deploy to Cloud Run:
    ```
-   gcloud run deploy --image gcr.io/your-project-id/cep-temperature-service --platform managed
+   gcloud run deploy --image gcr.io/goexpert-436420/go-expert-cep-temperature-gcr --platform managed
    ```
 
 Make sure to set the `WEATHER_API_KEY` environment variable in your Cloud Run configuration.
