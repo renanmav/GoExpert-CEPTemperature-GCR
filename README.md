@@ -4,6 +4,8 @@ This project is a Go-based web service that provides temperature information for
 
 The service is designed to be deployed on [Google Cloud Run](https://cloud.google.com/run).
 
+Deploy URL: https://go-expert-cep-temperature-gcr-608943233137.us-central1.run.app/weather?cep=01001000
+
 ## Features
 
 - Fetch location information using CEP (Brazilian Postal Code)
